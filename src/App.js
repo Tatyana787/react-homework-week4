@@ -73,8 +73,12 @@ function App() {
 
             <div></div>
           </div>
+          
         </div>
+        <a href='https://github.com/Tatyana787/react-homework-week4'> Open-source code </a> by Tanya Stadnyk 
+       
       </div>
+     
     </div>
   );
 }
