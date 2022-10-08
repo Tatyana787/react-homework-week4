@@ -6,11 +6,12 @@ ul {
   padding-bottom: 0px;
   padding: 10px;
   list-style: none;
-  color: #1b1f3b;
+  color: #3b1b1b;
   border-left: 1px solid #0c1b3350;
 }
 h1 {
-  color: #30a8de;
+  color:#0c1b33;
+  
 }
 
 li::first-letter {
@@ -76,3 +77,21 @@ button:hover {
   background: #ffc107;
 }
 
+.temp {
+  font-size: 65px;
+}
+.unit {
+  font-size: 19px;
+  vertical-align: 120%;
+}
+.link-code {
+  color: #30a8de;
+  font-size: 9px;
+}
+
+.weather-app-wrapper {
+  padding-top: 9px;
+  font-size: 9px;
+  color: #6c757d;
+  max-width: 900px;
+}

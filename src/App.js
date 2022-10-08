@@ -1,15 +1,43 @@
-
 import './App.css';
+import React, { useState } from "react";
+import axios from "axios";
+import WeatherInfo from './WeatherInfo';
+import FormattedDate from './FormattedDate';
 
-function App() {
-  let weatherData = {
-    city: "London",
-    update: "Last updated: 12:01",
-    temp: "22",
-    description: "Scattered clouds",
-    humidity: "74",
-    wind: "30"
-  };
+export default function App(props) {
+  let [weatherData, setWeatherData] = useState({ ready: false });
+  let [message, setMessage] = useState("");
+  let [city, setCity] = useState(props.defaultCity);
+
+ console.log(props.defaultCity)
+  function showWeather(response) {
+    
+    setWeatherData ({
+      ready: true,
+      temperature: Math.round(response.data.main.temp),
+      date: new Date(response.data.dt * 1000),
+      description: response.data.weather[0].main,
+      humidity: response.data.main.humidity,
+      wind: response.data.wind.speed,
+      icon: `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`,
+    })
+  }
+
+function search(){
+  let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=8c27e32a44363e7c302056624eb9fac6&units=metric`;
+  axios.get(url).then(showWeather);
+  setMessage(`${city.charAt(0).toUpperCase() + city.slice(1)}`); 
+}
+
+  function handleSubmit(event){
+    event.preventDefault();
+    search() 
+  }
+
+  function showValue(event) {
+    // event.preventDefault();
+    setCity(event.target.value);
+  }
 
   return (
     <div className="App">
@@ -18,69 +46,54 @@ function App() {
           <div className="img-overlay">
             <div className="row">
               <div className=" col-md-6 col-sm-12 col-12 order-md-first order-last">
-                <h1> {weatherData.city} </h1>
-                <span className="update">{weatherData.update}</span>
+                <h1> {message} </h1>
+                {/* <span className="update"> <FormattedDate date={props.data.date} /> </span> */}
               </div>
               <div className="pb-3  col-md-6 col-sm-12 col-12 order-firs">
-                <form>
+                
+                <form onSubmit={handleSubmit}>
                   <div className="input-group">
                     <input
                       type="text"
-                      className="form-control"
+                      className="form-control" 
                       placeholder="Type a city..."
+                      onChange={showValue}
                       aria-label="Recipient's username with two button addons"
                     />
+                    
                     <button
                       className="btn btn-outline-secondary btn-search"
                       type="submit"
                     >
                       Search
                     </button>
+                    
                     <button
                       className="btn btn-outline-secondary btn-location"
                       type="button"
                     >
                       <i className="fa-solid fa-location-dot"></i>
+                      Geo
                     </button>
                   </div>
                 </form>
               </div>
             </div>
 
-            <div className="row">
-              <div className="col-6">
-                <div className="temperature row">
-                  <div className="col-4">
-                    <img className="current-weather-icon" alt="" />
-                  </div>
+           <div> <WeatherInfo data={weatherData} /> </div> 
 
-                  <div className="col-8">
-                    <span className="temp">{weatherData.temp}</span>
-                    <span className="unit col-1">°C</span>
-                  </div>
-                </div>
-              </div>
-              <div className="col-6">
-                <div className="list">
-                  <ul>
-                    <li> {weatherData.description}</li>
-                    <li>Humidity: {weatherData.humidity} %</li>
-                    <li>Wind: {weatherData.wind} m/h</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-
-            <div></div>
-          </div>
-          
-        </div>
-        <a href='https://github.com/Tatyana787/react-homework-week4'> Open-source code </a> by Tanya Stadnyk 
-       
+          </div>       
+        </div>   
       </div>
-     
-    </div>
-  );
-}
-
-export default App;
+      <div className=" weather-app-wrapper  offset-lg-3  col-md-8 offset-md-2 col-sm-6 offset-sm-1 offset-1">
+        <a
+          className="link-code"
+          target="blank"
+          href="https://github.com/Tatyana787/react-homework-week4"
+        >
+           {"Open-source code "}
+        </a>
+            by Tanya Stadnyk
+      </div> 
+    </div> );
+  }
