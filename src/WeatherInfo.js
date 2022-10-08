@@ -1,7 +1,21 @@
 import React from "react";
 import './App.css';
 import'./index.css';
+import WeatherIcon from "./WeatherIcon";
 // import FormattedDate from "./FormattedDate";
+
+
+// function importAll(r) {
+//   let images = {};
+//    r.keys().forEach((item, index) => { images[item.replace('./', '')] = r(item); });
+//   return images
+//  }
+//  const images = importAll(require.context('./img', false, /\.(png|jpe?g|svg)$/));
+
+
+
+
+
 export default function WeatherInfo(props){
     return(
 
@@ -11,7 +25,14 @@ export default function WeatherInfo(props){
               <div className="col-6">
                 <div className="temperature row">
                   <div className="col-4">
-                    <img className="current-weather-icon" src={props.data.icon} alt="" />
+                     <img className="current-weather-icon" src={props.data.icon} alt="" />
+                    {/* <img className="current-weather-icon" src={props.data.icon} alt="" /> */}
+                    {/* {console.log(props.data.iconName +'.png')};
+                    {console.log("k3k3")};
+                    <img className="current-weather-icon" src={images[props.data.iconName +'.png']} alt="" /> */}
+                    <div className="current-weather-icon">
+                      {/* <WeatherIcon code={props.data} /> */}
+                      </div>
                   </div>
 
                   <div className="col-8">
@@ -27,8 +48,6 @@ export default function WeatherInfo(props){
                     <li>Humidity: {props.data.humidity} %</li>
                     <li>Wind: {props.data.wind} m/h</li>
                       {/* <li>Wind: {weatherData.wind.detDay()} m/h</li> */}
-     
-
                   </ul>
                 </div>
               </div>
