@@ -13,9 +13,6 @@ import'./index.css';
 //  const images = importAll(require.context('./img', false, /\.(png|jpe?g|svg)$/));
 
 
-
-
-
 export default function WeatherInfo(props){
     return(
 
@@ -47,7 +44,6 @@ export default function WeatherInfo(props){
                     <li> {props.data.description}</li>
                     <li>Humidity: {props.data.humidity} %</li>
                     <li>Wind: {props.data.wind} m/h</li>
-                      {/* <li>Wind: {weatherData.wind.detDay()} m/h</li> */}
                   </ul>
                 </div>
               </div>
