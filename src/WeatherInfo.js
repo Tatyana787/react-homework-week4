@@ -1,5 +1,4 @@
 import React from "react";
-import './App.css';
 import'./index.css';
 //import WeatherIcon from "./WeatherIcon";
 // import FormattedDate from "./FormattedDate";
