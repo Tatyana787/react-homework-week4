@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import axios from "axios";
 import WeatherInfo from "./WeatherInfo";
@@ -25,7 +24,7 @@ export default function App(props) {
 
   function search() {
     // let apiKey = "8c27e32a44363e7c302056624eb9fac6";
-     let apiKey = "5f472b7acba333cd8a035ea85a0d4d4c";
+    let apiKey = "5f472b7acba333cd8a035ea85a0d4d4c";
     let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
     axios.get(url).then(showWeather);
   }
@@ -37,6 +36,20 @@ export default function App(props) {
 
   function showValue(event) {
     setCity(event.target.value);
+  }
+
+  function geolocation() {
+    navigator.geolocation.getCurrentPosition(searchGeo);
+  }
+
+  function searchGeo(position) {
+    console.log(position)
+    let latitude = position.coords.latitude;
+    let longitude = position.coords.longitude;
+    let apiKey = "6f1066b52fb74e7c4c41b08e58f115f4";
+    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`;
+    axios.get(apiUrl).then(showWeather);
+    axios.get(apiUrl).then();
   }
   if (weatherData.ready) {
     return (
@@ -72,11 +85,12 @@ export default function App(props) {
                       </button>
 
                       <button
+                        onClick={geolocation}
                         className="btn btn-outline-secondary btn-location"
                         type="button"
                       >
                         <i className="fa-solid fa-location-dot"></i>
-                        Geo
+                       📍
                       </button>
                     </div>
                   </form>
